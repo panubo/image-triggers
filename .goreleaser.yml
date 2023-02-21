@@ -23,6 +23,7 @@ builds:
 snapshot:
   name_template: "git-{{.ShortCommit}}"
 
+# Push arch specific images (push is required for multi-arch manifests)
 dockers:
   - image_templates:
       - "panubo/image-triggers:{{ .Version }}-amd64"
@@ -43,7 +44,9 @@ dockers:
     build_flag_templates:
       - "--platform=linux/arm64"
 
+# Push multi-arch manifests
 docker_manifests:
+  # Docker Hub
   - name_template: "panubo/image-triggers:{{ .Version }}"
     image_templates:
       - "panubo/image-triggers:{{ .Version }}-amd64"
@@ -52,14 +55,15 @@ docker_manifests:
     image_templates:
       - "panubo/image-triggers:{{ .Version }}-amd64"
       - "panubo/image-triggers:{{ .Version }}-arm64"
+  # Quay.io
   - name_template: "quay.io/panubo/image-triggers:{{ .Version }}"
     image_templates:
-      - "panubo/image-triggers:{{ .Version }}-amd64"
-      - "panubo/image-triggers:{{ .Version }}-arm64"
+      - "quay.io/panubo/image-triggers:{{ .Version }}-amd64"
+      - "quay.io/panubo/image-triggers:{{ .Version }}-arm64"
   - name_template: "quay.io/panubo/image-triggers:{{.Major}}.{{.Minor}}"
     image_templates:
-      - "panubo/image-triggers:{{ .Version }}-amd64"
-      - "panubo/image-triggers:{{ .Version }}-arm64"
+      - "quay.io/panubo/image-triggers:{{ .Version }}-amd64"
+      - "quay.io/panubo/image-triggers:{{ .Version }}-arm64"
 
 release:
   github:
