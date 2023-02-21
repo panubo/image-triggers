@@ -23,46 +23,46 @@ builds:
 snapshot:
   name_template: "git-{{.ShortCommit}}"
 
-# dockers:
-#   - image_templates:
-#       - "panubo/image-triggers:{{.Major}}"
-#       - "panubo/image-triggers:{{.Major}}.{{.Minor}}"
-#       - "panubo/image-triggers:{{.Major}}.{{.Minor}}.{{.Patch}}"
-#       - "panubo/image-triggers:latest"
-#     skip_push: true
-
 dockers:
   - image_templates:
       - "panubo/image-triggers:{{ .Version }}-amd64"
+      - "quay.io/panubo/image-triggers:{{ .Version }}-amd64"
     use: buildx
+    goos: linux
     goarch: amd64
     dockerfile: Dockerfile
     build_flag_templates:
       - "--platform=linux/amd64"
-    skip_push: true
   - image_templates:
-      - "panubo/image-triggers:{{ .Version }}-arm64v8"
+      - "panubo/image-triggers:{{ .Version }}-arm64"
+      - "quay.io/panubo/image-triggers:{{ .Version }}-arm64"
     use: buildx
+    goos: linux
     goarch: arm64
     dockerfile: Dockerfile
     build_flag_templates:
-      - "--platform=linux/arm64/v8"
-    skip_push: true
+      - "--platform=linux/arm64"
+
 docker_manifests:
   - name_template: "panubo/image-triggers:{{ .Version }}"
     image_templates:
       - "panubo/image-triggers:{{ .Version }}-amd64"
-      - "panubo/image-triggers:{{ .Version }}-arm64v8"
-    skip_push: true
+      - "panubo/image-triggers:{{ .Version }}-arm64"
   - name_template: "panubo/image-triggers:{{.Major}}.{{.Minor}}"
     image_templates:
       - "panubo/image-triggers:{{ .Version }}-amd64"
-      - "panubo/image-triggers:{{ .Version }}-arm64v8"
-    skip_push: true
+      - "panubo/image-triggers:{{ .Version }}-arm64"
+  - name_template: "quay.io/panubo/image-triggers:{{ .Version }}"
+    image_templates:
+      - "panubo/image-triggers:{{ .Version }}-amd64"
+      - "panubo/image-triggers:{{ .Version }}-arm64"
+  - name_template: "quay.io/panubo/image-triggers:{{.Major}}.{{.Minor}}"
+    image_templates:
+      - "panubo/image-triggers:{{ .Version }}-amd64"
+      - "panubo/image-triggers:{{ .Version }}-arm64"
 
 release:
   github:
     owner: panubo
     name: image-triggers
-  draft: true
-  disable: true
+  draft: false
