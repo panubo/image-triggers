@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN set -x \
-  && apk --no-cache add bash curl \
+  && apk --no-cache add bash curl jq \
   && adduser -D -H appuser appuser \
   ;
 
