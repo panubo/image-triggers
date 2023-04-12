@@ -26,7 +26,7 @@ snapshot:
 # Push arch specific images (push is required for multi-arch manifests)
 dockers:
   - image_templates:
-      - "panubo/image-triggers:{{ .Version }}-amd64"
+      - "public.ecr.aws/panubo/image-triggers:{{ .Version }}-amd64"
       - "quay.io/panubo/image-triggers:{{ .Version }}-amd64"
     use: buildx
     goos: linux
@@ -35,7 +35,7 @@ dockers:
     build_flag_templates:
       - "--platform=linux/amd64"
   - image_templates:
-      - "panubo/image-triggers:{{ .Version }}-arm64"
+      - "public.ecr.aws/panubo/image-triggers:{{ .Version }}-arm64"
       - "quay.io/panubo/image-triggers:{{ .Version }}-arm64"
     use: buildx
     goos: linux
@@ -47,14 +47,14 @@ dockers:
 # Push multi-arch manifests
 docker_manifests:
   # Docker Hub
-  - name_template: "panubo/image-triggers:{{ .Version }}"
+  - name_template: "public.ecr.aws/panubo/image-triggers:{{ .Version }}"
     image_templates:
-      - "panubo/image-triggers:{{ .Version }}-amd64"
-      - "panubo/image-triggers:{{ .Version }}-arm64"
-  - name_template: "panubo/image-triggers:{{.Major}}.{{.Minor}}"
+      - "public.ecr.aws/panubo/image-triggers:{{ .Version }}-amd64"
+      - "public.ecr.aws/panubo/image-triggers:{{ .Version }}-arm64"
+  - name_template: "public.ecr.aws/panubo/image-triggers:{{.Major}}.{{.Minor}}"
     image_templates:
-      - "panubo/image-triggers:{{ .Version }}-amd64"
-      - "panubo/image-triggers:{{ .Version }}-arm64"
+      - "public.ecr.aws/panubo/image-triggers:{{ .Version }}-amd64"
+      - "public.ecr.aws/panubo/image-triggers:{{ .Version }}-arm64"
   # Quay.io
   - name_template: "quay.io/panubo/image-triggers:{{ .Version }}"
     image_templates:
