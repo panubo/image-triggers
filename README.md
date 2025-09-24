@@ -1,5 +1,7 @@
 # Image Triggers
 
+[![Test and Build](https://github.com/panubo/image-triggers/actions/workflows/golang-test-build.yml/badge.svg)](https://github.com/panubo/image-triggers/actions/workflows/golang-test-build.yml)
+
 This go application can consume an AWS SQS queue with ECR Image events on it and trigger an external script with the image name and image tag as parameters.
 
 ## Usage Example
