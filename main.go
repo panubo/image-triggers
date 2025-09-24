@@ -105,10 +105,14 @@ func processQueue(region *string, queueName *string, scriptPath string) bool {
 
 	// Create an input for receiving messages
 	input := &sqs.ReceiveMessageInput{
-		QueueUrl:            queueURL,
-		MaxNumberOfMessages: aws.Int64(10), // Change this to the maximum number of messages you want to receive
-		WaitTimeSeconds:     aws.Int64(20), // Change this to the maximum amount of time to wait for a message
-		VisibilityTimeout:   aws.Int64(5),  // Set the visibility timeout to 5 seconds
+		QueueUrl: queueURL,
+		MaxNumberOfMessages: aws.Int64(
+			10,
+		), // Change this to the maximum number of messages you want to receive
+		WaitTimeSeconds: aws.Int64(
+			20,
+		), // Change this to the maximum amount of time to wait for a message
+		VisibilityTimeout: aws.Int64(5), // Set the visibility timeout to 5 seconds
 	}
 
 	for {
@@ -137,7 +141,7 @@ func processQueue(region *string, queueName *string, scriptPath string) bool {
 			fmt.Printf("Image Tag: %s\n", imageTag)
 
 			// Call the external script for each message received
-			cmd := exec.Command(scriptPath, repositoryName, imageTag)
+			cmd := exec.Command(scriptPath, repositoryName, imageTag) //nolint:all
 			out, err := cmd.CombinedOutput()
 			if err != nil {
 				fmt.Println("Error executing script:", err)
